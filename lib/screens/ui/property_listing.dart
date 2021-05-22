@@ -1,0 +1,377 @@
+import 'package:baigiamasis/modules/globals.dart';
+import 'package:baigiamasis/screens/ui/add_property.dart';
+import 'package:baigiamasis/screens/ui/property_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Item {
+  const Item(this.name);
+  final String name;
+}
+
+class ShowProperties extends StatefulWidget {
+  //final pavilion;
+  // ShowProperties({
+  //   @required this.pavilion,
+  // });
+  @override
+  _ShowPropertiesState createState() => _ShowPropertiesState();
+}
+
+class _ShowPropertiesState extends State<ShowProperties> {
+  Item pavilionName;
+  bool isExecuted = false;
+  List<Item> users = <Item>[
+    const Item(
+      'Žuvies',
+    ),
+    const Item(
+      'Mėsos',
+    ),
+    const Item(
+      'Vaisiai/Daržovės',
+    ),
+    const Item(
+      'Drabužiai',
+    ),
+    const Item(
+      'Sodo prekės',
+    ),
+    const Item(
+      'Gyvūnai',
+    ),
+    const Item(
+      'Maisto produktai',
+    ),
+  ];
+  //String pavilion;
+  final document = FirebaseFirestore.instance.collection(firestoreProperty);
+
+  final currentMarketName =
+      FirebaseFirestore.instance.collection(firestoreProperty);
+
+  _ShowPropertiesState();
+
+  void initState() {
+    super.initState();
+    isExecuted = false;
+  }
+
+  bool isButtonDisabled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(marketPlaceName),
+        backgroundColor: Colors.red,
+        actions: [],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12),
+              height: 60,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.grey[300],
+                  )),
+              child: DropdownButton<Item>(
+                isExpanded: true,
+                underline: DropdownButtonHideUnderline(child: Container()),
+                hint: Text("Išrušiuoti pagal"),
+                value: pavilionName,
+                onChanged: (Item value) {
+                  setState(() {
+                    pavilionName = value;
+                    isExecuted = true;
+                  });
+                },
+                items: users.map((Item user) {
+                  return DropdownMenuItem<Item>(
+                    value: user,
+                    child: Text(
+                      user.name,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.amber,
+            height: 44,
+            child: ListTile(
+              leading: Text('ID'),
+              trailing: Text('Paviljonas'),
+            ),
+          ),
+          isExecuted
+              ? Expanded(
+                  child: StreamBuilder(
+                    stream: document
+                        .where('marketName', isEqualTo: marketPlaceName)
+                        .where('pavilion', isEqualTo: pavilionName.name)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (snapshot.hasData) {
+                        List list = [];
+                        for (var item in snapshot.data.docs) {
+                          list.add(item);
+                        }
+                        //sort array by date
+                        list.sort((a, b) {
+                          return a['premiseNumber']
+                              .toString()
+                              .compareTo(b['premiseNumber'].toString());
+                        });
+                        return ListView.separated(
+                          itemCount: list.length,
+                          separatorBuilder: (context, index) => const Divider(
+                            thickness: 3,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Dismissible(
+                              background: Container(color: Colors.red),
+                              key: ValueKey(list.elementAt(index)),
+                              confirmDismiss: (direction) async {
+                                try {
+                                  await document
+                                      .doc(list[index]['documentId'])
+                                      .delete();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "NT objektas sėkmingai pašalintas."),
+                                    ),
+                                  );
+                                  return true;
+                                } catch (error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "Įvyko klaida, bandykite dar karta"),
+                                    ),
+                                  );
+                                  return false;
+                                }
+                              },
+                              child: ListTile(
+                                title: Text(list[index]['premiseNumber']),
+                                //subtitle: Text(list[index]['premiseNumber']),
+                                trailing: Text(list[index]['pavilion']),
+                                onTap: () async {
+                                  String documentId = list[index]['documentId'];
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PropertyDetails(
+                                          documentId: documentId),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                )
+              : Expanded(
+                  child: StreamBuilder(
+                    stream: document
+                        .where('marketName', isEqualTo: marketPlaceName)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (snapshot.hasData) {
+                        List list = [];
+                        for (var item in snapshot.data.docs) {
+                          list.add(item);
+                        }
+                        return ListView.separated(
+                          itemCount: list.length,
+                          separatorBuilder: (context, index) => const Divider(
+                            thickness: 3,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Dismissible(
+                              background: Container(color: Colors.red),
+                              key: ValueKey(list.elementAt(index)),
+                              confirmDismiss: (direction) async {
+                                try {
+                                  await document
+                                      .doc(list[index]['documentId'])
+                                      .delete();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "NT objektas sėkmingai pašalintas."),
+                                    ),
+                                  );
+                                  return true;
+                                } catch (error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "Įvyko klaida, bandykite dar karta"),
+                                    ),
+                                  );
+                                  return false;
+                                }
+                              },
+                              child: ListTile(
+                                title: Text(list[index]['premiseNumber']),
+                                //subtitle: Text(list[index]['premiseNumber']),
+                                trailing: Text(list[index]['pavilion']),
+                                onTap: () async {
+                                  String documentId = list[index]['documentId'];
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PropertyDetails(
+                                          documentId: documentId),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add),
+        onPressed: () async {
+          final message = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddProperty(),
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message)),
+          );
+        },
+      ),
+      // body: StreamBuilder(
+      //   stream: document.where('userId', isEqualTo: _currentUser).snapshots(),
+      //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     }
+
+      //     if (snapshot.hasData) {
+      //       List list = [];
+      //       for (var item in snapshot.data.docs) {
+      //         list.add(item);
+      //       }
+
+      //       return ListView.separated(
+      //         itemCount: list.length,
+      //         separatorBuilder: (context, index) => const Divider(
+      //           thickness: 3,
+      //         ),
+      //         itemBuilder: (BuildContext context, int index) {
+      //           return Dismissible(
+      //             background: Container(color: Colors.red),
+      //             key: ValueKey(list.elementAt(index)),
+      //             confirmDismiss: (direction) async {
+      //               String tenantId = list[index]['tenantId'];
+      //               try {
+      //                 if (tenantId != '') {
+      //                   await FirebaseFirestore.instance
+      //                       .collection(firestoreTenant)
+      //                       .doc(tenantId)
+      //                       .delete();
+      //                 }
+      //                 await document.doc(list[index]['documentId']).delete();
+      //                 ScaffoldMessenger.of(context).showSnackBar(
+      //                   SnackBar(
+      //                     content: Text("NT objektas sėkmingai pašalintas."),
+      //                   ),
+      //                 );
+      //                 return true;
+      //               } catch (error) {
+      //                 ScaffoldMessenger.of(context).showSnackBar(
+      //                   SnackBar(
+      //                     content: Text("Įvyko klaida, bandykite dar karta"),
+      //                   ),
+      //                 );
+      //                 return false;
+      //               }
+      //             },
+      //             child: ListTile(
+      //               title: Text(list[index]['address']),
+      //               subtitle: Text(list[index]['postcode']),
+      //               trailing: Text(list[index]['city']),
+      //               onTap: () async {
+      //                 String documentId = list[index]['documentId'];
+      //                 await Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(
+      //                     builder: (context) =>
+      //                         PropertyDetails(documentId: documentId),
+      //                   ),
+      //                 );
+      //               },
+      //             ),
+      //           );
+      //         },
+      //       );
+      //     } else {
+      //       return null;
+      //     }
+      //   },
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Theme.of(context).primaryColor,
+      //   child: Icon(Icons.add),
+      //   onPressed: () async {
+      //     final message = await Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => AddProperty(),
+      //       ),
+      //     );
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(content: Text(message)),
+      //     );
+      //   },
+      // ),
+    );
+  }
+}

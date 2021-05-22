@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "436075765223",
+    "firebase_url": "https://nt-valdymas-5e7fd.firebaseio.com",
+    "project_id": "nt-valdymas-5e7fd",
+    "storage_bucket": "nt-valdymas-5e7fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436075765223:android:7ea828b6cd0e4ccef83142",
+        "android_client_info": {
+          "package_name": "com.example.baigiamasis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436075765223-edrnvf2n994fdlfeglcr54jqpl5ld078.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJtla7oqud19ecLd2KwWeG0DTrEpOiLT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436075765223-edrnvf2n994fdlfeglcr54jqpl5ld078.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "436075765223-suk9vu4sdctn1k55qkpgt82t2523jcsr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.baigiamasis"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
