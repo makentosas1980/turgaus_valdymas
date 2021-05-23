@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Item {
-  const Item(this.name);
-  final String name;
+  Item(this.name);
+  String name;
 }
+
+String currentPavilion = '';
 
 class UpdateProperty extends StatefulWidget {
   final documentId;
@@ -25,26 +27,26 @@ class UpdateProperty extends StatefulWidget {
 
 class _UpdatePropertyState extends State<UpdateProperty> {
   Item pavilionName;
-  List<Item> users = <Item>[
-    const Item(
+  List<Item> pavilions = <Item>[
+    Item(
       'Žuvies',
     ),
-    const Item(
+    Item(
       'Mėsos',
     ),
-    const Item(
+    Item(
       'Vaisiai/Daržovės',
     ),
-    const Item(
+    Item(
       'Drabužiai',
     ),
-    const Item(
+    Item(
       'Sodo prekės',
     ),
-    const Item(
+    Item(
       'Gyvūnai',
     ),
-    const Item(
+    Item(
       'Maisto produktai',
     ),
   ];
@@ -109,11 +111,11 @@ class _UpdatePropertyState extends State<UpdateProperty> {
                             print(value.name);
                           });
                         },
-                        items: users.map((Item user) {
+                        items: pavilions.map((Item singlePavilion) {
                           return DropdownMenuItem<Item>(
-                            value: user,
+                            value: singlePavilion,
                             child: Text(
-                              user.name,
+                              singlePavilion.name,
                               style: TextStyle(color: Colors.black),
                             ),
                           );
@@ -170,14 +172,26 @@ class _UpdatePropertyState extends State<UpdateProperty> {
                                 setState(() {
                                   isButtonDisabled = true;
                                 });
-                                bool navigate = await updateProperty(
-                                  documentId,
-                                  pavilionName.name,
-                                  premiseNumber,
-                                  ammountToPay,
-                                );
-                                if (navigate) {
-                                  Navigator.pop(context);
+                                if (pavilionName == null) {
+                                  bool navigate = await updateProperty(
+                                    documentId,
+                                    pavilion,
+                                    premiseNumber,
+                                    ammountToPay,
+                                  );
+                                  if (navigate) {
+                                    Navigator.pop(context);
+                                  }
+                                } else {
+                                  bool navigate = await updateProperty(
+                                    documentId,
+                                    pavilionName.name,
+                                    premiseNumber,
+                                    ammountToPay,
+                                  );
+                                  if (navigate) {
+                                    Navigator.pop(context);
+                                  }
                                 }
                               },
                         child: Text('Patvirtinti'),

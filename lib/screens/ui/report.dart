@@ -1,11 +1,9 @@
 import 'package:baigiamasis/modules/globals.dart';
 import 'package:baigiamasis/screens/ui/count_colleted_payment.dart';
 import 'package:baigiamasis/screens/ui/count_total_payment.dart';
+import 'package:baigiamasis/screens/ui/count_uncollected_ammount.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-double totalAmount = 0;
-var collectedAmmount = [];
 
 class ShowReport extends StatelessWidget {
   final document = FirebaseFirestore.instance.collection(firestoreProperty);
@@ -19,16 +17,22 @@ class ShowReport extends StatelessWidget {
           backgroundColor: Colors.red,
           actions: [],
         ),
-        body: Column(children: [
-          Container(
-            height: 100,
-            child: TotalAmmount(),
-          ),
-          Container(
-            height: 100,
-            child: CollectedPayment(),
-          ),
-        ])
+        body: Column(
+          children: [
+            Container(
+              height: 100,
+              child: TotalAmmount(),
+            ),
+            Container(
+              height: 100,
+              child: CollectedPayment(),
+            ),
+            Container(
+              height: 100,
+              child: UncollectedPayment(),
+            ),
+          ],
+        )
         // body: Column(
         //   children: [
         //     Container(

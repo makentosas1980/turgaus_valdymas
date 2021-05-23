@@ -38,6 +38,12 @@ class PropertyDetails extends StatelessWidget {
                 data.add(item);
               }
               var property = data[0];
+              isRentPaid = false;
+              for (var payment in property['payments']) {
+                if (currentDate == payment['date']) {
+                  isRentPaid = true;
+                }
+              }
               pavilion = property['pavilion'];
               premiseNumber = property['premiseNumber'];
               ammountToPay = property['ammountToPay'];
@@ -105,7 +111,7 @@ class PropertyDetails extends StatelessWidget {
                 onPressed: () {
                   addPayment(documentId, currentDate, ammountToPay, true);
                 },
-                label: Text('Sumokėta'),
+                label: Text('Sumokėti'),
               ),
             ],
           ),

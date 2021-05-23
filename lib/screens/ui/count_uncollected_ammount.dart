@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 double _totalAmount = 0;
-//var _collectedAmmount = [];
+var _collectedAmmount = [];
 
-class TotalAmmount extends StatelessWidget {
+class UncollectedPayment extends StatelessWidget {
   final document = FirebaseFirestore.instance.collection(firestoreProperty);
   final currentMarketName =
       FirebaseFirestore.instance.collection(firestoreProperty);
@@ -18,7 +18,7 @@ class TotalAmmount extends StatelessWidget {
             alignment: Alignment.center,
             height: 40,
             child: Text(
-              "BENDRA SUMA",
+              "NESURINKTA SUMA",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -32,7 +32,6 @@ class TotalAmmount extends StatelessWidget {
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
-                //totalAmmount = 0;
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -51,21 +50,28 @@ class TotalAmmount extends StatelessWidget {
                       .toList();
 
                   _totalAmount = 0;
-                  totalAmmount = 0;
                   for (var item in list) {
-                    var ammountToPay = item['ammountToPay'];
-                    var toDouble = double.parse(ammountToPay);
-                    assert(toDouble is double);
-                    _totalAmount += toDouble;
-                    totalAmmount = _totalAmount;
+                    for (var pay in item['payments']) {
+                      if (pay['date'] != currentDate) {
+                        _collectedAmmount.add(pay);
+                      }
+                    }
+                    if (_collectedAmmount.length > 0) {
+                      var ammountToPay = item['ammountToPay'];
+                      var toDouble = double.parse(ammountToPay);
+                      assert(toDouble is double);
+                      _totalAmount += toDouble;
+                    }
+                    //_totalAmount = _totalAmount - totalCollectedAmmount;
                   }
+                  print(totalCollectedAmmount);
+                  print(_totalAmount);
+                  _totalAmount = _totalAmount - totalCollectedAmmount;
                   return Container(
                     padding: const EdgeInsets.all(4),
                     child: Text(
                       '€$_totalAmount',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.green),
                       textScaleFactor: 2.0,
                     ),
                   );

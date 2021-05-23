@@ -53,8 +53,8 @@ class GetTenant extends StatelessWidget {
 
             if (paymentArray.length == 0) {
               return Text(
-                "NĖRA DUOMENŲ",
-                style: TextStyle(fontSize: 20),
+                "NUOMOS MOKESTIS NESUMOKĖTAS",
+                style: TextStyle(fontSize: 20, color: Colors.red),
               );
             }
             //sort array by date
@@ -67,12 +67,12 @@ class GetTenant extends StatelessWidget {
             if (lastPaymentDate == currentDate) {
               return Text(
                 "NUOMOS MOKESTIS SUMOKĖTAS",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.green),
               );
             } else {
               return Text(
                 "NUOMOS MOKESTIS NESUMOKĖTAS",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.red),
               );
             }
           }

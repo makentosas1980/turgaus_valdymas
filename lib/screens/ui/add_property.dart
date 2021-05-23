@@ -94,34 +94,46 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 12),
-                    height: 60,
+                    height: 88,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.grey[300],
-                        )),
-                    child: DropdownButton<Item>(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                    child: DropdownButtonFormField<Item>(
                       isExpanded: true,
-                      underline:
-                          DropdownButtonHideUnderline(child: Container()),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Laukas negali būti tuščias';
+                        } else {
+                          return null;
+                        }
+                      },
+                      // underline:
+                      //     DropdownButtonHideUnderline(child: Container()),
                       hint: Text("Paviljonas"),
                       value: selectedUser,
                       onChanged: (Item value) {
-                        setState(() {
-                          selectedUser = value;
-                          print(value.name);
-                        });
-                      },
-                      items: users.map((Item user) {
-                        return DropdownMenuItem<Item>(
-                          value: user,
-                          child: Text(
-                            user.name,
-                            style: TextStyle(color: Colors.black),
-                          ),
+                        setState(
+                          () {
+                            selectedUser = value;
+                            print(value.name);
+                          },
                         );
-                      }).toList(),
+                      },
+                      items: users.map(
+                        (Item user) {
+                          return DropdownMenuItem<Item>(
+                            value: user,
+                            child: Text(
+                              user.name,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ),
                 ),

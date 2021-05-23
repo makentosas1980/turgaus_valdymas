@@ -21,9 +21,13 @@ const firestoreMarketName = 'marketName';
 const propertyStatusEmpty = 'Laisvas';
 const properStatusRented = 'Išnuomotas';
 const firestorePayment = 'payments';
+const int $euro = 0x20AC;
 var marketPlaceName = '';
 var currentDate = new DateFormat('yyyy-MM-dd').format(DateTime.now());
 var currentPavilionName = '';
+double totalAmmount;
+double totalCollectedAmmount;
+bool isRentPaid = false;
 
 const sunMarket = 'Saulės Turgus';
 const winterMarket = 'Žiemos Turgus';

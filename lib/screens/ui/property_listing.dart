@@ -64,7 +64,7 @@ class _ShowPropertiesState extends State<ShowProperties> {
     return Scaffold(
       appBar: AppBar(
         title: Text(marketPlaceName),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
         actions: [],
       ),
       body: Column(
