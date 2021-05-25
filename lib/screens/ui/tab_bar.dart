@@ -1,5 +1,5 @@
-import 'package:baigiamasis/screens/ui/property_listing.dart';
 import 'package:baigiamasis/screens/ui/report.dart';
+import 'package:baigiamasis/screens/ui/report_issue.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:baigiamasis/screens/login/login_page.dart';
@@ -24,9 +24,10 @@ class _AppTabBarState extends State<AppTabBar> {
 
   static List<Widget> _widgetOptions = <Widget>[
     ChooseMarketPage(),
-    ShowProperties(
-        //pavilion: "",
-        ),
+    ReportIssue(),
+    //ShowProperties(
+    //pavilion: "",
+    //),
     ShowReport(),
   ];
 
@@ -38,7 +39,7 @@ class _AppTabBarState extends State<AppTabBar> {
           titleName = 'Turgavietė';
           break;
         case 1:
-          titleName = 'Patalpų sąrašas';
+          titleName = 'Pranešti apie problemą';
           break;
         case 2:
           titleName = 'Ataskaita';
@@ -103,11 +104,11 @@ class _AppTabBarState extends State<AppTabBar> {
             label: 'Pagrindinis',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.apartment),
-            label: 'Patalpos',
+            icon: Icon(Icons.report),
+            label: 'Pranešti apie įvykį',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.group),
+            icon: Icon(Icons.list),
             label: 'Ataskaita',
           ),
         ],

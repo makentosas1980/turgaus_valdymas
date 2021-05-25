@@ -6,6 +6,7 @@ class AuthMessage {
   static const addTenantMessage = 'Nuomininkas sėkmingai sukurtas';
   static const addPropertyMessage = 'NT objektas sėkmingai sukurtas';
   static const paymentAdded = 'Nuoma apmokėta';
+  static const addIssueMessage = 'Pranešimas sukurtas';
 }
 
 bool isEmailValid(String value) {
@@ -17,12 +18,13 @@ bool isEmailValid(String value) {
 
 const firestoreTenant = 'tenant';
 const firestoreProperty = 'premises';
+const firestoreIssue = 'issues';
 const firestoreMarketName = 'marketName';
 const propertyStatusEmpty = 'Laisvas';
 const properStatusRented = 'Išnuomotas';
 const firestorePayment = 'payments';
-const int $euro = 0x20AC;
-var marketPlaceName = '';
+
+var marketPlaceName = 'Saulės Turgus';
 var currentDate = new DateFormat('yyyy-MM-dd').format(DateTime.now());
 var currentPavilionName = '';
 double totalAmmount;

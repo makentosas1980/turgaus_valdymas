@@ -105,11 +105,17 @@ class _ShowPropertiesState extends State<ShowProperties> {
             ),
           ),
           Container(
-            color: Colors.amber,
-            height: 44,
+            color: Colors.blue[900],
+            height: 52,
             child: ListTile(
-              leading: Text('ID'),
-              trailing: Text('Paviljonas'),
+              leading: Text(
+                'ID',
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: Text(
+                'Paviljonas',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           isExecuted

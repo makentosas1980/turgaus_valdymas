@@ -54,7 +54,11 @@ class GetTenant extends StatelessWidget {
             if (paymentArray.length == 0) {
               return Text(
                 "NUOMOS MOKESTIS NESUMOKĖTAS",
-                style: TextStyle(fontSize: 20, color: Colors.red),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
               );
             }
             //sort array by date
@@ -65,14 +69,26 @@ class GetTenant extends StatelessWidget {
             paymentArray = paymentArray.reversed.toList();
             var lastPaymentDate = "${paymentArray[0]['date']}";
             if (lastPaymentDate == currentDate) {
-              return Text(
-                "NUOMOS MOKESTIS SUMOKĖTAS",
-                style: TextStyle(fontSize: 20, color: Colors.green),
+              return Padding(
+                padding: const EdgeInsets.only(top: 60.0),
+                child: Text(
+                  "NUOMOS MOKESTIS SUMOKĖTAS",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               );
             } else {
               return Text(
                 "NUOMOS MOKESTIS NESUMOKĖTAS",
-                style: TextStyle(fontSize: 20, color: Colors.red),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.red,
+                ),
+                textAlign: TextAlign.center,
               );
             }
           }

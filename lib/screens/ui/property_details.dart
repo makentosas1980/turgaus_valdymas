@@ -69,7 +69,13 @@ class PropertyDetails extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: GetTenant(documentId),
+                          child: Container(
+                            height: 200,
+                            color: Colors.green,
+                            child: GetTenant(
+                              documentId,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -106,13 +112,15 @@ class PropertyDetails extends StatelessWidget {
                 },
                 label: Text('Redaguoti'),
               ),
-              FloatingActionButton.extended(
-                heroTag: 'sumoketa',
-                onPressed: () {
-                  addPayment(documentId, currentDate, ammountToPay, true);
-                },
-                label: Text('Sumokėti'),
-              ),
+              Visibility(
+                child: FloatingActionButton.extended(
+                  heroTag: 'sumoketa',
+                  onPressed: () {
+                    addPayment(documentId, currentDate, ammountToPay, true);
+                  },
+                  label: Text('Sumokėti'),
+                ),
+              )
             ],
           ),
         ));
