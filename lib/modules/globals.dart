@@ -26,6 +26,7 @@ const firestorePayment = 'payments';
 
 var marketPlaceName = 'Saulės Turgus';
 var currentDate = new DateFormat('yyyy-MM-dd').format(DateTime.now());
+var currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
 var currentPavilionName = '';
 double totalAmmount;
 double totalCollectedAmmount;

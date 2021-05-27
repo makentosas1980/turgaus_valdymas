@@ -5,6 +5,8 @@ import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'dart:io' show Platform;
 
+import 'globals.dart';
+
 class PrintReceipt extends StatefulWidget {
   final String marketNametoPrint;
   final String pavilionToPrint;
@@ -34,7 +36,6 @@ class _PrintReceiptState extends State<PrintReceipt> {
   BluetoothManager bluetoothManager = BluetoothManager.instance;
 
   void initPrinter() {
-    print('init printer');
     _printerManager.startScan(Duration(seconds: 2));
     _printerManager.scanResults.listen(
       (event) {
@@ -54,24 +55,19 @@ class _PrintReceiptState extends State<PrintReceipt> {
   @override
   void initState() {
     if (Platform.isIOS) {
-      print("iOS");
-      initPrinter();
+      //initPrinter();
     } else {
       print("Android");
       bluetoothManager.state.listen(
         (val) {
-          print("state = $val");
           if (!mounted) return;
           if (val == 12) {
-            print('on');
             initPrinter();
           } else if (val == 10) {
-            print('off');
             setState(() {
-              _devicesMsg = 'Please enable bluetooth to print';
+              _devicesMsg = 'Neaktyvuotas bluetooth';
             });
           }
-          print('state is $val');
         },
       );
     }
@@ -87,7 +83,8 @@ class _PrintReceiptState extends State<PrintReceipt> {
 
   Future<Ticket> _ticket(PaperSize paper) async {
     final ticket = Ticket(paper);
-    ticket.text(widget.dateToPrint);
+    ticket.text(currentTime);
+    ticket.text(currentDate);
     ticket.text(widget.marketNametoPrint);
     ticket.text(widget.pavilionToPrint);
     ticket.text(widget.premiseNumberToPrint);

@@ -1,3 +1,4 @@
+import 'package:baigiamasis/modules/globals.dart';
 import 'package:flutter/material.dart';
 
 class PreviewReceipt extends StatefulWidget {
@@ -77,7 +78,10 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
                 child: Text('Kaina: ${widget.ammountToPayToPrint}'),
               ),
               Container(
-                child: Text(widget.dateToPrint),
+                child: Text(currentTime),
+              ),
+              Container(
+                child: Text(currentDate),
               ),
             ],
           ),
