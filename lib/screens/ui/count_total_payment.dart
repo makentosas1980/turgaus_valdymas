@@ -62,7 +62,7 @@ class TotalAmmount extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(4),
                     child: Text(
-                      '€$_totalAmount',
+                      '$_totalAmount€',
                       style: TextStyle(
                         fontSize: 20,
                       ),

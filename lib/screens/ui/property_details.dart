@@ -1,7 +1,9 @@
 import 'package:baigiamasis/modules/get_tenant.dart';
 import 'package:baigiamasis/modules/globals.dart';
+import 'package:baigiamasis/modules/print_receipt.dart';
 import 'package:baigiamasis/modules/rich_text.dart';
-import 'package:baigiamasis/modules/update_property_details.dart';
+//import 'package:baigiamasis/screens/ui/preview_receipt.dart';
+//import 'package:baigiamasis/modules/update_property_details.dart';
 import 'package:baigiamasis/screens/ui/update_property.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +67,7 @@ class PropertyDetails extends StatelessWidget {
                         ),
                         RichTextData(
                           labelTitle: 'Mokestis: ',
-                          labelData: ammountToPay,
+                          labelData: '$ammountToPay€',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
@@ -116,7 +118,25 @@ class PropertyDetails extends StatelessWidget {
                 child: FloatingActionButton.extended(
                   heroTag: 'sumoketa',
                   onPressed: () {
-                    addPayment(documentId, currentDate, ammountToPay, true);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PrintReceipt(
+                                marketNametoPrint: marketPlaceName,
+                                pavilionToPrint: pavilion,
+                                premiseNumberToPrint: premiseNumber,
+                                ammountToPayToPrint: '$ammountToPay€',
+                                dateToPrint: currentDate,
+                              )
+                          //       // orderType: 'demo',
+                          //       // orderNumber: '123456',
+                          //       // customerName: 'John',
+                          //       // deliveryTime: 'asap',
+                          //       // instruction:
+                          //       //     'Are you going to be able to print this one?',
+                          //),
+                          ),
+                    );
                   },
                   label: Text('Sumokėti'),
                 ),
