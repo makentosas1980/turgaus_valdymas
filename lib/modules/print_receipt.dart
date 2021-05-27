@@ -104,7 +104,6 @@ class _PrintReceiptState extends State<PrintReceipt> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        //inAsyncCall: "showSpinner",
         child: _devices.isNotEmpty
             ? ListView.builder(
                 itemBuilder: (context, position) => ListTile(
@@ -125,10 +124,6 @@ class _PrintReceiptState extends State<PrintReceipt> {
                   ammountToPayToPrint: widget.ammountToPayToPrint,
                   documentId: widget.documentId,
                 ),
-                // child: Text(
-                //   _devicesMsg ?? 'Nepavyko rasti spausdintuvo',
-                //   style: TextStyle(fontSize: 24),
-                // ),
               ),
       ),
     );

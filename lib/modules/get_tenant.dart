@@ -45,8 +45,6 @@ class GetPayment extends StatefulWidget {
     this.documentId,
   }) : super(key: key);
 
-  // GetPayment(this.documentId);
-
   @override
   _GetPaymentState createState() => _GetPaymentState();
 }
@@ -69,15 +67,12 @@ class _GetPaymentState extends State<GetPayment> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data.data();
             var paymentArray = data['payments'];
-            if (paymentArray.length == 0) {
-              //visiblePaymentButton = true;
 
-            }
-            //sort array by date
+            //SORT BY DATE
             paymentArray.sort((a, b) {
               return a['date'].toString().compareTo(b['date'].toString());
             });
-            //newest date comes first
+
             paymentArray = paymentArray.reversed.toList();
             var lastPaymentDate = "${paymentArray[0]['date']}";
             if (lastPaymentDate == currentDate) {
@@ -171,40 +166,6 @@ class _GetPaymentState extends State<GetPayment> {
                   ],
                 ),
               );
-
-              // visiblePaymentButton = true;
-              // return Column(
-              //   children: [
-              //     Text(
-              //       "NUOMOS MOKESTIS NESUMOKĖTAS",
-              //       style: TextStyle(
-              //         fontSize: 20,
-              //         color: Colors.red,
-              //       ),
-              //       textAlign: TextAlign.center,
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 20),
-              //       child: SizedBox(
-              //         width: double.infinity,
-              //         height: 44,
-              //         child: TextButton(
-              //           style: ButtonStyle(
-              //               backgroundColor:
-              //                   MaterialStateProperty.all(Colors.blue),
-              //               foregroundColor:
-              //                   MaterialStateProperty.all(Colors.white),
-              //               overlayColor:
-              //                   MaterialStateProperty.all(Colors.blueAccent)),
-              //           onPressed: () {
-              //             print("labas");
-              //           },
-              //           child: Text('Sumokėti'),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // );
             }
           }
           return Center(

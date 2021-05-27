@@ -108,8 +108,6 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                           return null;
                         }
                       },
-                      // underline:
-                      //     DropdownButtonHideUnderline(child: Container()),
                       hint: Text("Paviljonas"),
                       value: _pavilion,
                       onChanged: (Item value) {
@@ -188,7 +186,6 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                               MaterialStateProperty.all(Colors.white),
                           overlayColor:
                               MaterialStateProperty.all(Colors.blueAccent)),
-                      //disabledColor: Colors.grey,
                       onPressed: isButtonDisabled
                           ? null
                           : () async {

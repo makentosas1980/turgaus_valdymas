@@ -65,11 +65,12 @@ class UncollectedPayment extends StatelessWidget {
                     //_totalAmount = _totalAmount - totalCollectedAmmount;
                   }
                   _totalAmount = _totalAmount - totalCollectedAmmount;
+                  totalUncollectedAmmount = _totalAmount;
                   return Container(
                     padding: const EdgeInsets.all(4),
                     child: Text(
                       '$_totalAmount€',
-                      style: TextStyle(fontSize: 20, color: Colors.green),
+                      style: TextStyle(fontSize: 20, color: Colors.red[900]),
                       textScaleFactor: 2.0,
                     ),
                   );

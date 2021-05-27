@@ -45,7 +45,8 @@ class ShowReport extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReportPreview('jap kap'),
+                      builder: (context) =>
+                          ReportPreview('Spausdinti Ataskaita'),
                     ),
                   ).then(
                     (value) => ShowReport(),

@@ -54,11 +54,3 @@ Future<bool> updateProperty(
     return false;
   }
 }
-
-//COUNT TOTAL AMMOUNT
-// countTotalPaidRent() async {
-//   FirebaseFirestore.instance
-//       .collection(firestoreProperty)
-//       .get()
-//       .then((snap) => {print("veikia $snap.size")});
-// }

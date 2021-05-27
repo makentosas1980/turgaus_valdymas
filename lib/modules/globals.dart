@@ -33,6 +33,7 @@ var totalAmmountToPrint = '';
 bool visiblePaymentButton;
 double totalAmmount;
 double totalCollectedAmmount;
+double totalUncollectedAmmount;
 bool isRentPaid = false;
 
 const sunMarket = 'Saulės Turgus';

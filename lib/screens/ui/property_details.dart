@@ -5,9 +5,6 @@ import 'package:baigiamasis/screens/ui/update_property.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// ignore: unused_import
-import 'package:intl/date_symbol_data_file.dart';
-
 class PropertyDetails extends StatefulWidget {
   final String documentId;
   PropertyDetails({Key key, @required this.documentId}) : super(key: key);
@@ -17,7 +14,6 @@ class PropertyDetails extends StatefulWidget {
 }
 
 class _PropertyDetailsState extends State<PropertyDetails> {
-  //ValueNotifier<bool> paymentButton = ValueNotifier<bool>(false);
   final document = FirebaseFirestore.instance.collection(firestoreProperty);
 
   @override

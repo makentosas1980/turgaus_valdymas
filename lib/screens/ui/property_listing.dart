@@ -134,7 +134,7 @@ class _ShowPropertiesState extends State<ShowProperties> {
                         for (var item in snapshot.data.docs) {
                           list.add(item);
                         }
-                        //sort array by date
+                        //SORT ARRAY BY DATE
                         list.sort((a, b) {
                           return a['premiseNumber']
                               .toString()
@@ -223,15 +223,18 @@ class _ShowPropertiesState extends State<ShowProperties> {
                               key: ValueKey(list.elementAt(index)),
                               confirmDismiss: (direction) async {
                                 try {
-                                  await document
-                                      .doc(list[index]['documentId'])
-                                      .delete();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          "NT objektas sėkmingai pašalintas."),
-                                    ),
-                                  );
+                                  setState(() {
+                                    document
+                                        .doc(list[index]['documentId'])
+                                        .delete();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            "NT objektas sėkmingai pašalintas."),
+                                      ),
+                                    );
+                                  });
+
                                   return true;
                                 } catch (error) {
                                   ScaffoldMessenger.of(context).showSnackBar(

@@ -51,9 +51,9 @@ class ReportPreview extends StatelessWidget {
           return pw.Column(
             children: [
               pw.Padding(
-                padding: pw.EdgeInsets.only(top: 40),
+                padding: pw.EdgeInsets.symmetric(vertical: 8),
                 child: pw.Text(
-                  'Bendra suma: $totalAmmount Eur',
+                  'ATASKAITA',
                   style: pw.TextStyle(
                     fontSize: 40,
                   ),
@@ -61,31 +61,87 @@ class ReportPreview extends StatelessWidget {
               ),
               pw.Padding(
                 padding: pw.EdgeInsets.only(top: 40),
-                child: pw.Text(
-                  'Bendra suma: $totalAmmount Eur',
-                  style: pw.TextStyle(
-                    fontSize: 40,
+                child: pw.Container(
+                  alignment: pw.Alignment.topLeft,
+                  child: pw.Text(
+                    'Visa surinktina suma',
+                    style: pw.TextStyle(
+                      fontSize: 40,
+                    ),
                   ),
                 ),
               ),
               pw.Container(
+                alignment: pw.Alignment.topRight,
                 child: pw.Text(
-                  'Bendra suma: $totalAmmount Eur',
-                  style: pw.TextStyle(fontSize: 40),
+                  '$totalAmmount Eur',
+                  style: pw.TextStyle(
+                    fontSize: 40,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
                 ),
               ),
+              pw.Divider(),
               pw.Padding(
                 padding: pw.EdgeInsets.only(top: 40),
-                child: pw.Text('ok'),
+                child: pw.Container(
+                  alignment: pw.Alignment.topLeft,
+                  child: pw.Text(
+                    'Surinkta suma',
+                    style: pw.TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+              ),
+              pw.Container(
+                alignment: pw.Alignment.topRight,
+                child: pw.Text(
+                  '$totalCollectedAmmount Eur',
+                  style: pw.TextStyle(
+                    fontSize: 40,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+              ),
+              pw.Divider(),
+              pw.Padding(
+                padding: pw.EdgeInsets.only(top: 40),
+                child: pw.Container(
+                  alignment: pw.Alignment.topLeft,
+                  child: pw.Text(
+                    'Surinkta suma',
+                    style: pw.TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+              ),
+              pw.Container(
+                alignment: pw.Alignment.topRight,
+                child: pw.Text(
+                  '$totalUncollectedAmmount Eur',
+                  style: pw.TextStyle(
+                    fontSize: 40,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+              ),
+              pw.Divider(),
+              pw.Padding(
+                padding: pw.EdgeInsets.only(top: 40),
+                child: pw.Container(
+                  alignment: pw.Alignment.center,
+                  child: pw.Text(
+                    '$currentDate       $currentTime',
+                    style: pw.TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
             ],
           );
-          // return pw.Center(
-          //   child: pw.Text(
-          //     'Bendra suma: $totalAmmount',
-          //     style: pw.TextStyle(fontSize: 40),
-          //   ),
-          // );
         },
       ),
     );
