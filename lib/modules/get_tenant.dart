@@ -1,4 +1,5 @@
 import 'package:baigiamasis/modules/globals.dart';
+import 'package:baigiamasis/modules/print_receipt.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -28,19 +29,37 @@ class Payment {
         }).toList();
 }
 
-class GetTenant extends StatelessWidget {
+class GetPayment extends StatefulWidget {
+  final String marketNameFoPayment;
+  final String pavilionForPayment;
+  final String premiseNumberForPayment;
+  final String ammountForPayment;
   final String documentId;
 
-  GetTenant(this.documentId);
+  const GetPayment({
+    Key key,
+    this.marketNameFoPayment,
+    this.pavilionForPayment,
+    this.premiseNumberForPayment,
+    this.ammountForPayment,
+    this.documentId,
+  }) : super(key: key);
 
+  // GetPayment(this.documentId);
+
+  @override
+  _GetPaymentState createState() => _GetPaymentState();
+}
+
+class _GetPaymentState extends State<GetPayment> {
   @override
   Widget build(BuildContext context) {
     final paymentt = FirebaseFirestore.instance.collection(firestoreProperty);
-    if ((documentId) == '') {
+    if ((widget.documentId) == '') {
       return Text('Nėra duomenų');
     } else {
       return FutureBuilder<DocumentSnapshot>(
-        future: paymentt.doc(documentId).get(),
+        future: paymentt.doc(widget.documentId).get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -50,16 +69,9 @@ class GetTenant extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data.data();
             var paymentArray = data['payments'];
-
             if (paymentArray.length == 0) {
-              return Text(
-                "NUOMOS MOKESTIS NESUMOKĖTAS",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              );
+              //visiblePaymentButton = true;
+
             }
             //sort array by date
             paymentArray.sort((a, b) {
@@ -69,27 +81,130 @@ class GetTenant extends StatelessWidget {
             paymentArray = paymentArray.reversed.toList();
             var lastPaymentDate = "${paymentArray[0]['date']}";
             if (lastPaymentDate == currentDate) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 60.0),
-                child: Text(
-                  "NUOMOS MOKESTIS SUMOKĖTAS",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
+              visiblePaymentButton = false;
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 4,
+                      blurRadius: 8,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                ),
+                width: 300,
+                height: 300,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100.0),
+                      child: Text(
+                        "NUOMOS MOKESTIS SUMOKĖTAS",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
               );
             } else {
-              return Text(
-                "NUOMOS MOKESTIS NESUMOKĖTAS",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.red,
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+                child: Column(
+                  children: [
+                    Text(
+                      "NUOMOS MOKESTIS NESUMOKĖTAS",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 44,
+                        child: TextButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue),
+                              foregroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.blueAccent)),
+                          onPressed: () {
+                            print("popas: ${widget.premiseNumberForPayment}");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrintReceipt(
+                                  marketNametoPrint: marketPlaceName,
+                                  pavilionToPrint:
+                                      widget.premiseNumberForPayment,
+                                  premiseNumberToPrint:
+                                      widget.premiseNumberForPayment,
+                                  ammountToPayToPrint:
+                                      '${widget.ammountForPayment}',
+                                  dateToPrint: currentDate,
+                                  documentId: widget.documentId,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text('Sumokėti'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
               );
+
+              // visiblePaymentButton = true;
+              // return Column(
+              //   children: [
+              //     Text(
+              //       "NUOMOS MOKESTIS NESUMOKĖTAS",
+              //       style: TextStyle(
+              //         fontSize: 20,
+              //         color: Colors.red,
+              //       ),
+              //       textAlign: TextAlign.center,
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.symmetric(vertical: 20),
+              //       child: SizedBox(
+              //         width: double.infinity,
+              //         height: 44,
+              //         child: TextButton(
+              //           style: ButtonStyle(
+              //               backgroundColor:
+              //                   MaterialStateProperty.all(Colors.blue),
+              //               foregroundColor:
+              //                   MaterialStateProperty.all(Colors.white),
+              //               overlayColor:
+              //                   MaterialStateProperty.all(Colors.blueAccent)),
+              //           onPressed: () {
+              //             print("labas");
+              //           },
+              //           child: Text('Sumokėti'),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // );
             }
           }
           return Center(
@@ -100,75 +215,3 @@ class GetTenant extends StatelessWidget {
     }
   }
 }
-// class GetTenant extends StatelessWidget {
-//   final String paymentId;
-
-//   GetTenant(this.paymentId);
-
-// print('vakar');
-// if ((paymentId) == '') {
-//   return Text('Nėra duomenų');
-// } else {
-//   FirebaseFirestore.instance
-//       .collection('payments')
-//       .where('documentId', isEqualTo: paymentId)
-//       .get()
-//       .then((event) {
-//     if (event.docs.isNotEmpty) {
-//       //Map<String, dynamic> data = event.docs.single.data();
-//       return Text("Status: "); //if it is a single document
-//     } else {
-//       return Text("koko");
-//     }
-//   });
-//   return Text('Nėra duomenų');
-//return Text('ok');
-// return new StreamBuilder(
-//     stream: FirebaseFirestore.instance
-//         .collection(firestorePayment)
-//         .doc('6jcwiCByuwdVpdsgJY4b')
-//         .snapshots(),
-//     builder: (context, snapshot) {
-//       if (!snapshot.hasData) {
-//         return new Text("Loading");
-//       }
-//       var data = snapshot.data;
-//       return new Text("Status: ${data['status']}");
-//     });
-//}
-
-// class GetTenant extends StatelessWidget {
-//   final String tenantId;
-
-//   GetTenant(this.tenantId);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final payment = FirebaseFirestore.instance.collection(firestorePayment);
-//     if ((paymentId) == '') {
-//       return Text('Nėra duomenų');
-//     } else {
-//       return FutureBuilder<DocumentSnapshot>(
-//         future: payment.doc().get(),
-//         builder:
-//             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-//           if (snapshot.hasError) {
-//             return Text("Kažkas ne taip, bandykite dar kartą vėliau.");
-//           }
-
-//           if (snapshot.connectionState == ConnectionState.done) {
-//             Map<String, dynamic> data = snapshot.data.data();
-//             print("data: $data");
-//             return Text(
-//               "a",
-//               style: TextStyle(fontSize: 20),
-//             );
-//           }
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         },
-//       );
-//     }
-//   }
-// }

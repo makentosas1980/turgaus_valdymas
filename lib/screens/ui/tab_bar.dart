@@ -1,5 +1,7 @@
+import 'package:baigiamasis/modules/globals.dart';
 import 'package:baigiamasis/screens/ui/report.dart';
 import 'package:baigiamasis/screens/ui/report_issue.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:baigiamasis/screens/login/login_page.dart';
@@ -17,17 +19,9 @@ class AppTabBar extends StatefulWidget {
 class _AppTabBarState extends State<AppTabBar> {
   final email = FirebaseAuth.instance.currentUser.email;
 
-  /*static const TextStyle textStyle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-  );*/
-
   static List<Widget> _widgetOptions = <Widget>[
     ChooseMarketPage(),
     ReportIssue(),
-    //ShowProperties(
-    //pavilion: "",
-    //),
     ShowReport(),
   ];
 

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 double _totalAmount = 0;
+
 //var _collectedAmmount = [];
 
 class TotalAmmount extends StatelessWidget {

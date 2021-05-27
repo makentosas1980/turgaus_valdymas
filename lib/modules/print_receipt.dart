@@ -13,6 +13,7 @@ class PrintReceipt extends StatefulWidget {
   final String premiseNumberToPrint;
   final String ammountToPayToPrint;
   final String dateToPrint;
+  final String documentId;
 
   const PrintReceipt({
     Key key,
@@ -21,6 +22,7 @@ class PrintReceipt extends StatefulWidget {
     this.premiseNumberToPrint,
     this.ammountToPayToPrint,
     this.dateToPrint,
+    this.documentId,
   }) : super(key: key);
 
   @override
@@ -121,7 +123,7 @@ class _PrintReceiptState extends State<PrintReceipt> {
                   pavilionToPrint: widget.pavilionToPrint,
                   premiseNumberToPrint: widget.premiseNumberToPrint,
                   ammountToPayToPrint: widget.ammountToPayToPrint,
-                  dateToPrint: widget.dateToPrint,
+                  documentId: widget.documentId,
                 ),
                 // child: Text(
                 //   _devicesMsg ?? 'Nepavyko rasti spausdintuvo',

@@ -10,10 +10,6 @@ class Item {
 }
 
 class ShowProperties extends StatefulWidget {
-  //final pavilion;
-  // ShowProperties({
-  //   @required this.pavilion,
-  // });
   @override
   _ShowPropertiesState createState() => _ShowPropertiesState();
 }
@@ -44,7 +40,7 @@ class _ShowPropertiesState extends State<ShowProperties> {
       'Maisto produktai',
     ),
   ];
-  //String pavilion;
+
   final document = FirebaseFirestore.instance.collection(firestoreProperty);
 
   final currentMarketName =
@@ -177,7 +173,6 @@ class _ShowPropertiesState extends State<ShowProperties> {
                               },
                               child: ListTile(
                                 title: Text(list[index]['premiseNumber']),
-                                //subtitle: Text(list[index]['premiseNumber']),
                                 trailing: Text(list[index]['pavilion']),
                                 onTap: () async {
                                   String documentId = list[index]['documentId'];
@@ -250,10 +245,10 @@ class _ShowPropertiesState extends State<ShowProperties> {
                               },
                               child: ListTile(
                                 title: Text(list[index]['premiseNumber']),
-                                //subtitle: Text(list[index]['premiseNumber']),
                                 trailing: Text(list[index]['pavilion']),
                                 onTap: () async {
                                   String documentId = list[index]['documentId'];
+
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -290,94 +285,6 @@ class _ShowPropertiesState extends State<ShowProperties> {
           );
         },
       ),
-      // body: StreamBuilder(
-      //   stream: document.where('userId', isEqualTo: _currentUser).snapshots(),
-      //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-
-      //     if (snapshot.hasData) {
-      //       List list = [];
-      //       for (var item in snapshot.data.docs) {
-      //         list.add(item);
-      //       }
-
-      //       return ListView.separated(
-      //         itemCount: list.length,
-      //         separatorBuilder: (context, index) => const Divider(
-      //           thickness: 3,
-      //         ),
-      //         itemBuilder: (BuildContext context, int index) {
-      //           return Dismissible(
-      //             background: Container(color: Colors.red),
-      //             key: ValueKey(list.elementAt(index)),
-      //             confirmDismiss: (direction) async {
-      //               String tenantId = list[index]['tenantId'];
-      //               try {
-      //                 if (tenantId != '') {
-      //                   await FirebaseFirestore.instance
-      //                       .collection(firestoreTenant)
-      //                       .doc(tenantId)
-      //                       .delete();
-      //                 }
-      //                 await document.doc(list[index]['documentId']).delete();
-      //                 ScaffoldMessenger.of(context).showSnackBar(
-      //                   SnackBar(
-      //                     content: Text("NT objektas sėkmingai pašalintas."),
-      //                   ),
-      //                 );
-      //                 return true;
-      //               } catch (error) {
-      //                 ScaffoldMessenger.of(context).showSnackBar(
-      //                   SnackBar(
-      //                     content: Text("Įvyko klaida, bandykite dar karta"),
-      //                   ),
-      //                 );
-      //                 return false;
-      //               }
-      //             },
-      //             child: ListTile(
-      //               title: Text(list[index]['address']),
-      //               subtitle: Text(list[index]['postcode']),
-      //               trailing: Text(list[index]['city']),
-      //               onTap: () async {
-      //                 String documentId = list[index]['documentId'];
-      //                 await Navigator.push(
-      //                   context,
-      //                   MaterialPageRoute(
-      //                     builder: (context) =>
-      //                         PropertyDetails(documentId: documentId),
-      //                   ),
-      //                 );
-      //               },
-      //             ),
-      //           );
-      //         },
-      //       );
-      //     } else {
-      //       return null;
-      //     }
-      //   },
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Theme.of(context).primaryColor,
-      //   child: Icon(Icons.add),
-      //   onPressed: () async {
-      //     final message = await Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => AddProperty(),
-      //       ),
-      //     );
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(content: Text(message)),
-      //     );
-      //   },
-      // ),
     );
   }
 }

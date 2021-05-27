@@ -23,11 +23,14 @@ const firestoreMarketName = 'marketName';
 const propertyStatusEmpty = 'Laisvas';
 const properStatusRented = 'Išnuomotas';
 const firestorePayment = 'payments';
+const firestorePavilions = 'pavilions';
 
 var marketPlaceName = 'Saulės Turgus';
 var currentDate = new DateFormat('yyyy-MM-dd').format(DateTime.now());
 var currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
 var currentPavilionName = '';
+var totalAmmountToPrint = '';
+bool visiblePaymentButton;
 double totalAmmount;
 double totalCollectedAmmount;
 bool isRentPaid = false;
@@ -35,13 +38,3 @@ bool isRentPaid = false;
 const sunMarket = 'Saulės Turgus';
 const winterMarket = 'Žiemos Turgus';
 const freedomMarket = 'Laivės Turgus';
-
-class PropertyTypes {
-  static const Map<int, String> typeWidget = const <int, String>{
-    0: 'Kiems',
-    1: 'Butas',
-    2: 'Sodas',
-    3: 'Sodyba',
-    4: 'Oba'
-  };
-}

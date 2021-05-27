@@ -67,7 +67,6 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                         overlayColor:
                             MaterialStateProperty.all(Colors.blueAccent)),
                     onPressed: () {
-                      //marketName = sunMarket;
                       marketPlaceName = sunMarket;
                       onMarketChange(0);
                       Navigator.push(
@@ -99,7 +98,6 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                         overlayColor:
                             MaterialStateProperty.all(Colors.blueAccent)),
                     onPressed: () {
-                      //marketName = winterMarket;
                       marketPlaceName = winterMarket;
                       onMarketChange(1);
                       Navigator.push(
@@ -136,9 +134,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ShowProperties(
-                              //pavilion: "Paieška",
-                              ),
+                          builder: (context) => ShowProperties(),
                         ),
                       );
                     },

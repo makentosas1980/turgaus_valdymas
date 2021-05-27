@@ -64,8 +64,6 @@ class UncollectedPayment extends StatelessWidget {
                     }
                     //_totalAmount = _totalAmount - totalCollectedAmmount;
                   }
-                  print(totalCollectedAmmount);
-                  print(_totalAmount);
                   _totalAmount = _totalAmount - totalCollectedAmmount;
                   return Container(
                     padding: const EdgeInsets.all(4),

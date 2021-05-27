@@ -128,31 +128,6 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                   ),
                 ),
               ),
-              /*Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 44,
-                  child: TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.blueAccent)),
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignupPage(),
-                        ),
-                      );
-                      _clearInputs();
-                    },
-                    child: Text('Eiti į registracijos puslapį'),
-                  ),
-                ),
-              ),*/
             ],
           ),
         ),

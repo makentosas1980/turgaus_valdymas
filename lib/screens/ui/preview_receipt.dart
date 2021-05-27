@@ -1,4 +1,5 @@
 import 'package:baigiamasis/modules/globals.dart';
+import 'package:baigiamasis/modules/update_property_details.dart';
 import 'package:flutter/material.dart';
 
 class PreviewReceipt extends StatefulWidget {
@@ -6,7 +7,7 @@ class PreviewReceipt extends StatefulWidget {
   final String pavilionToPrint;
   final String premiseNumberToPrint;
   final String ammountToPayToPrint;
-  final String dateToPrint;
+  final String documentId;
 
   const PreviewReceipt({
     Key key,
@@ -14,7 +15,7 @@ class PreviewReceipt extends StatefulWidget {
     this.pavilionToPrint,
     this.premiseNumberToPrint,
     this.ammountToPayToPrint,
-    this.dateToPrint,
+    this.documentId,
   }) : super(key: key);
   @override
   _PreviewReceiptState createState() => _PreviewReceiptState();
@@ -30,21 +31,21 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                spreadRadius: 4,
+                blurRadius: 8,
+                offset: Offset(0, 2), // changes position of shadow
               ),
             ],
           ),
           width: 300,
-          height: 300,
+          height: 400,
           child: Column(
             children: [
               Container(
@@ -82,6 +83,29 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
               ),
               Container(
                 child: Text(currentDate),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 44,
+                  child: TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.blueAccent)),
+                    onPressed: () async {
+                      await addPayment(widget.documentId, currentDate,
+                          widget.ammountToPayToPrint, true);
+                      visiblePaymentButton = false;
+                      Navigator.pop(context);
+                    },
+                    child: Text('Patvirtinti mokėjimą'),
+                  ),
+                ),
               ),
             ],
           ),
