@@ -1,4 +1,4 @@
-import 'package:baigiamasis/modules/get_tenant.dart';
+import 'package:baigiamasis/modules/get_payment.dart';
 import 'package:baigiamasis/modules/globals.dart';
 import 'package:baigiamasis/modules/rich_text.dart';
 import 'package:baigiamasis/screens/ui/update_property.dart';

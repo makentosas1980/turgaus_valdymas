@@ -95,13 +95,13 @@ class _GetPaymentState extends State<GetPayment> {
                               overlayColor:
                                   MaterialStateProperty.all(Colors.blueAccent)),
                           onPressed: () {
+                            print('kas? ');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PrintReceipt(
                                   marketNametoPrint: marketPlaceName,
-                                  pavilionToPrint:
-                                      widget.premiseNumberForPayment,
+                                  pavilionToPrint: 'valio',
                                   premiseNumberToPrint:
                                       widget.premiseNumberForPayment,
                                   ammountToPayToPrint:
@@ -123,9 +123,6 @@ class _GetPaymentState extends State<GetPayment> {
 
             if (snapshot.connectionState == ConnectionState.done &&
                 paymentArray.length != 0) {
-              // Map<String, dynamic> data = snapshot.data.data();
-              // var paymentArray = data['payments'];
-
               //SORT BY DATE
               paymentArray.sort((a, b) {
                 return a['date'].toString().compareTo(b['date'].toString());
@@ -204,8 +201,7 @@ class _GetPaymentState extends State<GetPayment> {
                                 MaterialPageRoute(
                                   builder: (context) => PrintReceipt(
                                     marketNametoPrint: marketPlaceName,
-                                    pavilionToPrint:
-                                        widget.premiseNumberForPayment,
+                                    pavilionToPrint: widget.pavilionForPayment,
                                     premiseNumberToPrint:
                                         widget.premiseNumberForPayment,
                                     ammountToPayToPrint:

@@ -98,6 +98,7 @@ class _PrintReceiptState extends State<PrintReceipt> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.pavilionToPrint);
     return Scaffold(
       appBar: AppBar(
         title: Text("Pasirinkite prietaisą"),

@@ -70,13 +70,14 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
                 ),
               ),
               Container(
-                child: Text(widget.pavilionToPrint),
+                child:
+                    Text('Paviljonas: ${widget.pavilionToPrint.toUpperCase()}'),
               ),
               Container(
-                child: Text(widget.premiseNumberToPrint),
+                child: Text('Nr. ${widget.premiseNumberToPrint}'),
               ),
               Container(
-                child: Text('Kaina: ${widget.ammountToPayToPrint}'),
+                child: Text('Kaina: ${widget.ammountToPayToPrint}€'),
               ),
               Container(
                 child: Text(currentTime),

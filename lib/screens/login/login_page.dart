@@ -90,6 +90,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: TextFormField(
                   controller: _passwordField,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Slaptažodis",
