@@ -26,7 +26,6 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Align(
-        //alignment: Alignment.center,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

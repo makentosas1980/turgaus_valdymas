@@ -95,30 +95,21 @@ class _PropertyDetailsState extends State<PropertyDetails> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton.extended(
-              heroTag: 'redaguoti',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpdateProperty(
-                      documentId: widget.documentId,
-                      pavilion: pavilion,
-                      premiseNumber: premiseNumber,
-                      ammountToPay: ammountToPay,
-                    ),
-                  ),
-                );
-              },
-              label: Text('Redaguoti'),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UpdateProperty(
+                documentId: widget.documentId,
+                pavilion: pavilion,
+                premiseNumber: premiseNumber,
+                ammountToPay: ammountToPay,
+              ),
             ),
-          ],
-        ),
+          );
+        },
+        label: Text('Redaguoti'),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:baigiamasis/modules/update_property_details.dart';
 import 'package:baigiamasis/screens/ui/preview_receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_basic/flutter_bluetooth_basic.dart';
@@ -100,15 +101,17 @@ class _PrintReceiptState extends State<PrintReceipt> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pasirinkite prietaisą"),
+        title: Text("Pasirinkite spausdintuvą"),
       ),
       backgroundColor: Colors.white,
       body: Container(
         child: _devices.isNotEmpty
             ? ListView.builder(
                 itemBuilder: (context, position) => ListTile(
-                  onTap: () {
-                    _startPrint(_devices[position]);
+                  onTap: () async {
+                    await _startPrint(_devices[position]);
+                    addPayment(widget.documentId, currentDate,
+                        widget.ammountToPayToPrint, true);
                   },
                   leading: Icon(Icons.print),
                   title: Text(_devices[position].name),
