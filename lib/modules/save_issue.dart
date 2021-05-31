@@ -15,7 +15,8 @@ Future<String> createIssue(
         'marketName': marketPlaceName,
         'pavilion': pavilion,
         'premiseNumber': premiseNumber,
-        'ammountToPay': description,
+        'message': description,
+        'date': currentDate,
       },
     );
     return AuthMessage.addIssueMessage;

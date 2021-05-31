@@ -32,7 +32,7 @@ class ShowReport extends StatelessWidget {
             child: UncollectedPayment(),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             child: SizedBox(
               width: double.infinity,
               height: 44,
