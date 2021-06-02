@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_basic/flutter_bluetooth_basic.dart';
 import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
+import 'package:intl/intl.dart';
 import 'dart:io' show Platform;
-
 import 'globals.dart';
 
 class PrintReceipt extends StatefulWidget {
@@ -60,7 +60,6 @@ class _PrintReceiptState extends State<PrintReceipt> {
     if (Platform.isIOS) {
       //initPrinter();
     } else {
-      print("Android");
       bluetoothManager.state.listen(
         (val) {
           if (!mounted) return;
@@ -85,8 +84,9 @@ class _PrintReceiptState extends State<PrintReceipt> {
   }
 
   Future<Ticket> _ticket(PaperSize paper) async {
+    var _currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
     final ticket = Ticket(paper);
-    ticket.text(currentTime);
+    ticket.text(_currentTime);
     ticket.text(currentDate);
     ticket.text(widget.marketNametoPrint);
     ticket.text(widget.pavilionToPrint);

@@ -146,6 +146,19 @@ class _ShowPropertiesState extends State<ShowProperties> {
                             thickness: 3,
                           ),
                           itemBuilder: (BuildContext context, int index) {
+                            var property = list[index];
+                            var _isRentPaid = '';
+                            if (property['payments'].isEmpty) {
+                              _isRentPaid = 'Nesumokėta';
+                            }
+                            for (var payment in property['payments']) {
+                              if (currentDate == payment['date']) {
+                                _isRentPaid = 'Sumokėta';
+                              } else {
+                                _isRentPaid = 'Nesumokėta';
+                              }
+                            }
+
                             return Dismissible(
                               background: Container(color: Colors.red),
                               key: ValueKey(list.elementAt(index)),
@@ -173,6 +186,10 @@ class _ShowPropertiesState extends State<ShowProperties> {
                               },
                               child: ListTile(
                                 title: Text(list[index]['premiseNumber']),
+                                subtitle: Text(
+                                  _isRentPaid,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 trailing: Text(list[index]['pavilion']),
                                 onTap: () async {
                                   String documentId = list[index]['documentId'];
@@ -212,12 +229,26 @@ class _ShowPropertiesState extends State<ShowProperties> {
                         for (var item in snapshot.data.docs) {
                           list.add(item);
                         }
+
                         return ListView.separated(
                           itemCount: list.length,
                           separatorBuilder: (context, index) => const Divider(
                             thickness: 3,
                           ),
                           itemBuilder: (BuildContext context, int index) {
+                            var property = list[index];
+                            var _isRentPaid = '';
+                            if (property['payments'].isEmpty) {
+                              _isRentPaid = 'Nesumokėta';
+                            }
+                            for (var payment in property['payments']) {
+                              if (currentDate == payment['date']) {
+                                _isRentPaid = 'Sumokėta';
+                              } else {
+                                _isRentPaid = 'Nesumokėta';
+                              }
+                            }
+
                             return Dismissible(
                               background: Container(color: Colors.red),
                               key: ValueKey(list.elementAt(index)),
@@ -248,6 +279,10 @@ class _ShowPropertiesState extends State<ShowProperties> {
                               },
                               child: ListTile(
                                 title: Text(list[index]['premiseNumber']),
+                                subtitle: Text(
+                                  _isRentPaid,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 trailing: Text(list[index]['pavilion']),
                                 onTap: () async {
                                   String documentId = list[index]['documentId'];

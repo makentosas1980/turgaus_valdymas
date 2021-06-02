@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:baigiamasis/modules/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -17,7 +18,6 @@ class ReportPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(totalAmmountToPrint.toString());
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -43,6 +43,7 @@ class ReportPreview extends StatelessWidget {
 
   Future<Uint8List> _generatePdf(PdfPageFormat format, String title) async {
     final pdf = pw.Document();
+    var _currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
 
     pdf.addPage(
       pw.Page(
@@ -133,7 +134,7 @@ class ReportPreview extends StatelessWidget {
                 child: pw.Container(
                   alignment: pw.Alignment.center,
                   child: pw.Text(
-                    '$currentDate       $currentTime',
+                    '$currentDate       $_currentTime',
                     style: pw.TextStyle(
                       fontSize: 20,
                     ),

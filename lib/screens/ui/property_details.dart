@@ -72,7 +72,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Container(
-                          height: 300,
+                          height: 280,
                           child: GetPayment(
                             marketNameFoPayment: marketPlaceName,
                             pavilionForPayment: pavilion,

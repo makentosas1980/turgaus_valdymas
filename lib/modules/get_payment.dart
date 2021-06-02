@@ -95,13 +95,12 @@ class _GetPaymentState extends State<GetPayment> {
                               overlayColor:
                                   MaterialStateProperty.all(Colors.blueAccent)),
                           onPressed: () {
-                            print('kas? ');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PrintReceipt(
                                   marketNametoPrint: marketPlaceName,
-                                  pavilionToPrint: 'valio',
+                                  pavilionToPrint: widget.pavilionForPayment,
                                   premiseNumberToPrint:
                                       widget.premiseNumberForPayment,
                                   ammountToPayToPrint:

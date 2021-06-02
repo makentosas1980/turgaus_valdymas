@@ -1,6 +1,7 @@
 import 'package:baigiamasis/modules/globals.dart';
 import 'package:baigiamasis/modules/update_property_details.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PreviewReceipt extends StatefulWidget {
   final String marketNametoPrint;
@@ -22,6 +23,7 @@ class PreviewReceipt extends StatefulWidget {
 }
 
 class _PreviewReceiptState extends State<PreviewReceipt> {
+  var _currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +55,11 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
                 child: Text(
                   'Nepavyko rasti spaudintuvo',
                   style: TextStyle(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
+                    fontStyle: FontStyle.normal,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
                 ),
               ),
               Container(
@@ -79,7 +83,7 @@ class _PreviewReceiptState extends State<PreviewReceipt> {
                 child: Text('Kaina: ${widget.ammountToPayToPrint}€'),
               ),
               Container(
-                child: Text(currentTime),
+                child: Text(_currentTime),
               ),
               Container(
                 child: Text(currentDate),

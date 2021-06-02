@@ -27,7 +27,7 @@ const firestorePavilions = 'pavilions';
 
 var marketPlaceName = 'Saulės Turgus';
 var currentDate = new DateFormat('yyyy-MM-dd').format(DateTime.now());
-var currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
+//var currentTime = new DateFormat('kk:mm:ss').format(DateTime.now());
 var currentPavilionName = '';
 var totalAmmountToPrint = '';
 bool visiblePaymentButton;
