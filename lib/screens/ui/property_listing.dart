@@ -148,14 +148,18 @@ class _ShowPropertiesState extends State<ShowProperties> {
                           itemBuilder: (BuildContext context, int index) {
                             var property = list[index];
                             var _isRentPaid = '';
+                            bool _isPaidStatus;
                             if (property['payments'].isEmpty) {
                               _isRentPaid = 'Nesumokėta';
+                              _isPaidStatus = false;
                             }
                             for (var payment in property['payments']) {
                               if (currentDate == payment['date']) {
                                 _isRentPaid = 'Sumokėta';
+                                _isPaidStatus = true;
                               } else {
                                 _isRentPaid = 'Nesumokėta';
+                                _isPaidStatus = false;
                               }
                             }
 
@@ -184,24 +188,51 @@ class _ShowPropertiesState extends State<ShowProperties> {
                                   return false;
                                 }
                               },
-                              child: ListTile(
-                                title: Text(list[index]['premiseNumber']),
-                                subtitle: Text(
-                                  _isRentPaid,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Text(list[index]['pavilion']),
-                                onTap: () async {
-                                  String documentId = list[index]['documentId'];
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PropertyDetails(
-                                          documentId: documentId),
+                              child: _isPaidStatus
+                                  ? ListTile(
+                                      title: Text(list[index]['premiseNumber']),
+                                      subtitle: Text(
+                                        _isRentPaid,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: Text(list[index]['pavilion']),
+                                      onTap: () async {
+                                        String documentId =
+                                            list[index]['documentId'];
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PropertyDetails(
+                                                    documentId: documentId),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : ListTile(
+                                      selected: false,
+                                      tileColor: Colors.red[300],
+                                      title: Text(list[index]['premiseNumber']),
+                                      subtitle: Text(
+                                        _isRentPaid,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: Text(list[index]['pavilion']),
+                                      onTap: () async {
+                                        String documentId =
+                                            list[index]['documentId'];
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PropertyDetails(
+                                                    documentId: documentId),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
                             );
                           },
                         );
@@ -238,14 +269,18 @@ class _ShowPropertiesState extends State<ShowProperties> {
                           itemBuilder: (BuildContext context, int index) {
                             var property = list[index];
                             var _isRentPaid = '';
+                            bool _isPaidStatus;
                             if (property['payments'].isEmpty) {
                               _isRentPaid = 'Nesumokėta';
+                              _isPaidStatus = false;
                             }
                             for (var payment in property['payments']) {
                               if (currentDate == payment['date']) {
                                 _isRentPaid = 'Sumokėta';
+                                _isPaidStatus = true;
                               } else {
                                 _isRentPaid = 'Nesumokėta';
+                                _isPaidStatus = false;
                               }
                             }
 
@@ -277,25 +312,52 @@ class _ShowPropertiesState extends State<ShowProperties> {
                                   return false;
                                 }
                               },
-                              child: ListTile(
-                                title: Text(list[index]['premiseNumber']),
-                                subtitle: Text(
-                                  _isRentPaid,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Text(list[index]['pavilion']),
-                                onTap: () async {
-                                  String documentId = list[index]['documentId'];
+                              child: _isPaidStatus
+                                  ? ListTile(
+                                      title: Text(list[index]['premiseNumber']),
+                                      subtitle: Text(
+                                        _isRentPaid,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: Text(list[index]['pavilion']),
+                                      onTap: () async {
+                                        String documentId =
+                                            list[index]['documentId'];
 
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PropertyDetails(
-                                          documentId: documentId),
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PropertyDetails(
+                                                    documentId: documentId),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : ListTile(
+                                      tileColor: Colors.red[300],
+                                      title: Text(list[index]['premiseNumber']),
+                                      subtitle: Text(
+                                        _isRentPaid,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: Text(list[index]['pavilion']),
+                                      onTap: () async {
+                                        String documentId =
+                                            list[index]['documentId'];
+
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PropertyDetails(
+                                                    documentId: documentId),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
                             );
                           },
                         );
@@ -312,15 +374,12 @@ class _ShowPropertiesState extends State<ShowProperties> {
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(Icons.add),
         onPressed: () async {
-          final message = await Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => AddProperty(),
             ),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
-          );
+          ).then((value) => ShowProperties());
         },
       ),
     );

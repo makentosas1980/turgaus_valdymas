@@ -107,7 +107,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                 ammountToPay: ammountToPay,
               ),
             ),
-          );
+          ).then((value) => PropertyDetails(documentId: widget.documentId));
         },
         label: Text('Redaguoti'),
       ),
